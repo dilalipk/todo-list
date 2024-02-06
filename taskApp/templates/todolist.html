@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block title %}Task - Page {% endblock title %}
+{%block content %}
+<form method="POST" class="mt-5">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="mb-3">
+        <input
+          type="text"
+          name="title"
+          class="form-control"
+          placeholder="Task Title"
+        />
+      </div>
+      <div class="mb-3">
+        <textarea
+          class="form-control"
+          name="notes"
+          rows="2"
+          placeholder="Notes here!"
+        ></textarea>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="mb-3">
+        <select class="form-select" name="status">
+          <option value="" disabled selected>Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="complete">Complete</option>
+          <option value="on_progress">On Progress</option>
+          <option value="on_hold">On Hold</option>
+        </select>
+      </div>
+      <div class="mb-2">
+        <button type="submit" class="btn btn-primary w-100">Add Task</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <td>
+        {{ task.title }} {% if task.notes %}
+        <div class="row">
+          <div class="col">
+            <p>{{ task.notes }}</p>
+          </div>
+        </div>
+        {% endif %}
+      </td>
+      <td class="align-middle">{{ task.get_status_display }}</td>
+      <td class="align-middle text-center">
+        <button type="button" class="btn btn-primary">Edit</button>
+      </td>
+      <td class="align-middle text-center">
+        <button type="button" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
