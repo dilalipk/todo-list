@@ -10,8 +10,33 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-      
-    </style>
+    <style>
+      /* Custom CSS for animation */
+      @keyframes typing {
+        from { width: 0 }
+        to { width: 60% }
+      }
+  
+      .animated-text {
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: .10em; 
+        animation: typing 2s steps(40, end);
+      }
+  
+      /* Animation for the second h1 tag */
+      .second-h1 {
+        animation: fadeIn 1s ease-out forwards;
+        animation-delay: 2s; /* Delay the animation */
+        opacity: 0;
+      }
+  
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    </style>     
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-black">

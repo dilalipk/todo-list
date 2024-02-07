@@ -5,32 +5,151 @@
 <br><br>
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Task</button>
 <br><br>
-
-<table class="table table-bordered mt-4">
-  <tbody>
-    {% for task in tasks %}
+  {% comment %} Get Task All {% endcomment %}
+  {% if tasks %}
+  <table class="table table-bordered  mt-4">
+   {% if pending_tasks %}
+   <thead class="table-dark">
     <tr>
-      <td>
-        <b>{{ task.title }}</b>
-        {% if task.notes %}
-        <div class="sticky-note">
-          <p>{{ task.notes }}</p>
-        </div>
-        {% endif %}
-      </td>
-      <td class="align-middle">{{ task.get_status_display }}</td>
-      <td class="align-middle text-center">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ task.id }}" data-bs-whatever="@mdo">Edit</button>
-      </td>
-      <td class="align-middle text-center">
-        <a href="{% url "delete" task.id %}"><button type="button" class="btn btn-danger">Delete</button> </a>
-      </td>
+      <th>ID</th>
+      <th>Pending Task</th>
+      <th class="align-middle text-center">Status</th>
+      <th class="align-middle text-center">Edit</th>
+      <th class="align-middle text-center">Delete</th>
     </tr>
-    {% endfor %}
+  </thead>
+  <tbody>
+
+      {% for task in pending_tasks %}
+      <tr>
+        <td>{{ task.id }}</td>
+        <td>
+          <b>{{ task.title }}</b>
+          {% if task.notes %}
+          <div class="sticky-note">
+            <p>{{ task.notes }}</p>
+          </div>
+          {% endif %}
+        </td>
+        <td  class=" align-middle text-center align-middle">{{ task.get_status_display }}</td>
+        <td class="align-middle text-center">
+          <button type="button" class="btn btn-outline-primary text-blue" data-bs-toggle="modal" data-bs-target="#editModal{{ task.id }}" data-bs-whatever="@mdo">Edit</button>
+        </td>
+        <td class="align-middle text-center">
+          <a href="{% url "delete" task.id %}"><button type="button" class="btn btn-outline-danger text-red">Delete</button></a>
+        </td>
+      </tr>
+      {% endfor %}
   </tbody>
-</table>
+   {% endif %}
 
+   {% if progress_tasks %}
+   <thead class="table-success">
+    <tr>
+      <th>ID</th>
+      <th>Progress Task</th>
+      <th class="align-middle text-center">Status</th>
+      <th class="align-middle text-center">Edit</th>
+      <th class="align-middle text-center">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
 
+      {% for task in progress_tasks %}
+      <tr>
+        <td>{{ task.id }}</td>
+        <td>
+          <b>{{ task.title }}</b>
+          {% if task.notes %}
+          <div class="sticky-note">
+            <p>{{ task.notes }}</p>
+          </div>
+          {% endif %}
+        </td>
+        <td  class=" align-middle text-center align-middle">{{ task.get_status_display }}</td>
+        <td class="align-middle text-center">
+          <button type="button" class="btn btn-outline-primary text-blue" data-bs-toggle="modal" data-bs-target="#editModal{{ task.id }}" data-bs-whatever="@mdo">Edit</button>
+        </td>
+        <td class="align-middle text-center">
+          <a href="{% url "delete" task.id %}"><button type="button" class="btn btn-outline-danger text-red">Delete</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+   {% endif %}
+
+   {% if hold_tasks %}
+   <thead class="table-warning">
+    <tr>
+      <th>ID</th>
+      <th>Hold Task</th>
+      <th class="align-middle text-center">Status</th>
+      <th class="align-middle text-center">Edit</th>
+      <th class="align-middle text-center">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+
+      {% for task in hold_tasks %}
+      <tr>
+        <td>{{ task.id }}</td>
+        <td>
+          <b>{{ task.title }}</b>
+          {% if task.notes %}
+          <div class="sticky-note">
+            <p>{{ task.notes }}</p>
+          </div>
+          {% endif %}
+        </td>
+        <td  class=" align-middle text-center align-middle">{{ task.get_status_display }}</td>
+        <td class="align-middle text-center">
+          <button type="button" class="btn btn-outline-primary text-blue" data-bs-toggle="modal" data-bs-target="#editModal{{ task.id }}" data-bs-whatever="@mdo">Edit</button>
+        </td>
+        <td class="align-middle text-center">
+          <a href="{% url "delete" task.id %}"><button type="button" class="btn btn-outline-danger text-red">Delete</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+   {% endif %}
+   {% if complete_tasks %}
+   <thead class="table-primary">
+    <tr>
+      <th>ID</th>
+      <th>Complete Task</th>
+      <th class="align-middle text-center">Status</th>
+      <th class="align-middle text-center">Edit</th>
+      <th class="align-middle text-center">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+
+      {% for task in complete_tasks %}
+      <tr>
+        <td>{{ task.id }}</td>
+        <td>
+          <b>{{ task.title }}</b>
+          {% if task.notes %}
+          <div class="sticky-note">
+            <p>{{ task.notes }}</p>
+          </div>
+          {% endif %}
+        </td>
+        <td  class=" align-middle text-center align-middle">{{ task.get_status_display }}</td>
+        <td class="align-middle text-center">
+          <button type="button" class="btn btn-outline-primary text-blue" data-bs-toggle="modal" data-bs-target="#editModal{{ task.id }}" data-bs-whatever="@mdo">Edit</button>
+        </td>
+        <td class="align-middle text-center">
+          <a href="{% url "delete" task.id %}"><button type="button" class="btn btn-outline-danger text-red">Delete</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+   {% endif %}
+
+  </table>
+  {% endif %}
+  
 {% comment %} Add Task {% endcomment %}
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -21,7 +21,18 @@ def all_tasks(request):
     if request.method == "GET":
 
         tasks = Task.objects.all()
-        context = {"tasks": tasks}
+        pending_tasks = tasks.filter(status='pending')
+        complete_tasks = tasks.filter(status='complete')
+        progress_tasks = tasks.filter(status='on_progress')
+        hold_tasks = tasks.filter(status='on_hold')
+
+        context = {
+                   "tasks": tasks , 
+                   "pending_tasks": pending_tasks,
+                   'complete_tasks': complete_tasks,
+                   'hold_tasks': hold_tasks,
+                   'progress_tasks': progress_tasks
+                   }
 
         return render(request, "todolist.html", context=context)
 

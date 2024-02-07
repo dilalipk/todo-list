@@ -1,1 +1,48 @@
-{% extends "base.html" %} {% block title %}Home Page{% endblock title %}
+{% extends "base.html" %} {% load static %} {% block title %}Home Page
+{%endblock title %} {% comment %} Content {% endcomment %} {%block content %}
+
+<div class="container text-center mt-5">
+  <div class="row">
+    <div class="col">
+      <img
+        src="static/images/sticky-note.jpeg"
+        class="img-fluid img-thumbnail shadow p-3 mb-5 bg-body-tertiary"
+        alt="..."
+        style="width: 500px; height: 350px"
+      />
+    </div>
+    <div class="col">
+      <img
+        src="static/images/todo.jpg"
+        class="img-fluid img-thumbnail shadow p-3 mb-5 bg-body-tertiary"
+        alt="..."
+        style="width: 500px; height: 350px"
+      />
+    </div>
+    <div class="col">
+      <img
+        src="static/images/ideas.jpg"
+        class="img-fluid img-thumbnail shadow p-3 mb-5 bg-body-tertiary"
+        alt="..."
+        style="width: 500px; height: 350px"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 text-center">
+    <h1 class="animated-text">Organize your work</h1>
+    <h1 class="second-h1">and life, finally.</h1>
+  </div>
+  
+<div class="text-center mt-4 text-center">
+  <h5>
+    Become focused, organized, and calm with <b>TodoGuru</b>. The world’s #1
+  </h5>
+  <h5>task manager and to-do list app.</h5>
+</div>
+<div class="text-center mt-4">
+  <a href="{% url "tasks" %}"><button class="btn btn-outline-primary text-blue" type="submit">Let's Start</button></a>
+</div>
+{% endblock content %}
