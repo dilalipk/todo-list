@@ -1,66 +1,116 @@
-{% extends "base.html" %} {% block title %}Task - Page {% endblock title %}
-{%block content %}
-<form method="POST" class="mt-5">
-  {% csrf_token %}
-  <div class="row">
-    <div class="col-lg-7">
-      <div class="mb-3">
-        <input
-          type="text"
-          name="title"
-          class="form-control"
-          placeholder="Task Title"
-        />
-      </div>
-      <div class="mb-3">
-        <textarea
-          class="form-control"
-          name="notes"
-          rows="2"
-          placeholder="Notes here!"
-        ></textarea>
-      </div>
-    </div>
-    <div class="col-lg-2">
-      <div class="mb-3">
-        <select class="form-select" name="status">
-          <option value="" disabled selected>Select Status</option>
-          <option value="pending">Pending</option>
-          <option value="complete">Complete</option>
-          <option value="on_progress">On Progress</option>
-          <option value="on_hold">On Hold</option>
-        </select>
-      </div>
-      <div class="mb-2">
-        <button type="submit" class="btn btn-primary w-100">Add Task</button>
-      </div>
-    </div>
-  </div>
-</form>
+{% extends "base.html" %} 
+{% block title %}Task - Page {% endblock title %}
 
-<table class="table table-striped">
+{% block content %}
+<br><br>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Task</button>
+<br><br>
+
+<table class="table table-bordered mt-4">
   <tbody>
     {% for task in tasks %}
     <tr>
       <td>
-        {{ task.title }} {% if task.notes %}
-        <div class="row">
-          <div class="col">
-            <p>{{ task.notes }}</p>
-          </div>
+        <b>{{ task.title }}</b>
+        {% if task.notes %}
+        <div class="sticky-note">
+          <p>{{ task.notes }}</p>
         </div>
         {% endif %}
       </td>
       <td class="align-middle">{{ task.get_status_display }}</td>
       <td class="align-middle text-center">
-        <button type="button" class="btn btn-primary">Edit</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ task.id }}" data-bs-whatever="@mdo">Edit</button>
       </td>
       <td class="align-middle text-center">
-        <button type="button" class="btn btn-danger">Delete</button>
+        <a href="{% url "delete" task.id %}"><button type="button" class="btn btn-danger">Delete</button> </a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 
+
+{% comment %} Add Task {% endcomment %}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel{{ task.id }}">Add Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url "tasks" %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="mb-3">
+              <label class="form-label">Task</label>
+              <input type="text" name="title" class="form-control" placeholder="Task here!">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" name="notes" rows="2" placeholder="Description here!"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+
+              <select class="form-select" name="status">
+                <option value="pending" selected>Pending</option>
+                <option value="complete">Complete</option>
+                <option value="on_progress">On Progress</option>
+                <option value="on_hold">On Hold</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} Edit Task  {% endcomment %}
+
+{% for task in tasks %}
+<div class="modal fade" id="editModal{{ task.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ task.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'edit' task.id %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">Task</label>
+            <input type="text" class="form-control"  name="title" value="{{ task.title }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" rows="2" name="notes">{{ task.notes }}</textarea>
+          </div>
+          <div class="mb-3">
+            <label  class="form-label">Status</label>
+            <select class="form-select" name="status">
+              <option value="pending" {% if task.status == 'pending' %}selected{% endif %}>Pending</option>
+              <option value="complete" {% if task.status == 'complete' %}selected{% endif %}>Complete</option>
+              <option value="on_progress" {% if task.status == 'on_progress' %}selected{% endif %}>On Progress</option>
+              <option value="on_hold" {% if task.status == 'on_hold' %}selected{% endif %}>On Hold</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% endblock content %}
