@@ -1,4 +1,3 @@
 #TodoGuru
-TodoGuru is a task manager web application build using Django Framework. The aim of this project was to understand the working of Django Framework along with it's common features like MVC architecture, authentication.
+TodoGuru is a task manager web application built using Django Framework. This project aimed to understand the workings of Django Framework along with its common features like MVC architecture, and authentication.
 
-#Screenshots
