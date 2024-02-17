@@ -10,6 +10,4 @@
 <img width="1679" alt="Upadte Task" src="https://github.com/dilalipk/todo-list/assets/134641294/726e7513-2935-4a27-825b-6e006339231c">
 
 
-## Demo
-
 
