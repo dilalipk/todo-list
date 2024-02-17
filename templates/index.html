@@ -1,48 +1,48 @@
-{% extends "base.html" %} {% load static %} {% block title %}Home Page
-{%endblock title %} {% comment %} Content {% endcomment %} {%block content %}
+{% extends "base.html" %} {% load static %} {% block title %}Home Page{%endblock title %}
 
-<div class="container text-center mt-5">
-  <div class="row">
-    <div class="col">
-      <img
-        src="static/images/sticky-note.jpeg"
-        class="img-fluid img-thumbnail shadow p-3 mb-5 bg-body-tertiary"
-        alt="..."
-        style="width: 500px; height: 350px"
-      />
+
+{% comment %} Content {% endcomment %} {%block content %}
+
+
+<div class="container mt-4 d-flex justify-content-center">
+  <div id="carouselExampleIndicators" class="carousel slide rounded" data-bs-ride="carousel">
+    <div class="carousel-inner" style="height: 500px; width: 1000px; border-radius: 10px;">
+      <div class="carousel-item active">
+        <img src="{% static "images/ideas.jpg" %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static "images/sticky-note.jpeg" %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static "images/todo.jpg" %}" class="d-block w-100" alt="...">
+      </div>
     </div>
-    <div class="col">
-      <img
-        src="static/images/todo.jpg"
-        class="img-fluid img-thumbnail shadow p-3 mb-5 bg-body-tertiary"
-        alt="..."
-        style="width: 500px; height: 350px"
-      />
-    </div>
-    <div class="col">
-      <img
-        src="static/images/ideas.jpg"
-        class="img-fluid img-thumbnail shadow p-3 mb-5 bg-body-tertiary"
-        alt="..."
-        style="width: 500px; height: 350px"
-      />
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button style="height: 500px; width: 150px;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-12 text-center">
-    <h1 class="animated-text">Organize your work</h1>
-    <h1 class="second-h1">and life, finally.</h1>
+
+  <div class="row mt-4">
+    <div class="col-12 text-center">
+      <h1 class="animated-text">Organize your work</h1>
+      <h1 class="second-h1">and life, finally.</h1>
+    </div>
+    
+  <div class="text-center mt-4 text-center">
+    <h5>
+      Become focused, organized, and calm with <b>TodoGuru</b>. The world’s #1
+    </h5>
+    <h5>task manager and to-do list app.</h5>
   </div>
-  
-<div class="text-center mt-4 text-center">
-  <h5>
-    Become focused, organized, and calm with <b>TodoGuru</b>. The world’s #1
-  </h5>
-  <h5>task manager and to-do list app.</h5>
-</div>
-<div class="text-center mt-4">
-  <a href="{% url "tasks" %}"><button class="btn btn-outline-primary text-blue" type="submit">Let's Start</button></a>
+  <div class="text-center mt-4">
+    <a href="{% url "tasks" %}"><button class="btn btn-outline-primary text-blue" type="submit">Let's Start</button></a>
+  </div>
 </div>
 {% endblock content %}

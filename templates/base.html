@@ -68,13 +68,26 @@
                 <a class="nav-link text-white" href="#">About Us</a>
               </li>
             </ul>
-  
+            {% if request.user.is_authenticated %}
+            <div class="row">
+              <div  class="col ">
+                  <button style ="margin-left: -30px" class="btn text-white">{{ request.user.first_name }} {{ request.user.last_name }}</button>
+              </div>
+              <div class="col">
+                  <form method="post" action="{% url 'logout' %}">
+                      {% csrf_token %}
+                      <button class="btn btn-outline-success text-white" type="submit">Logout</button>
+                  </form>
+              </div>
+          </div>
+          
+        {% else %}
             <div>
-              <button class="btn btn-outline-success text-white" type="submit">Login</button>
-              <button class="btn btn-outline-success text-white" type="submit">
-                Register
-              </button>
+                <a href="{% url 'login' %}"><button class="btn btn-outline-success text-white" type="button">Login</button></a>
+                <a href="{% url 'register' %}"><button class="btn btn-outline-success text-white" type="button">Register</button></a>
             </div>
+        {% endif %}
+        
           </div>
         </div>
   </nav>
